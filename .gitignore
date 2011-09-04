@@ -116,6 +116,7 @@ autom4te.cache/
 /main/src/addins/WindowsPlatform/Makefile
 /main/src/addins/prj2make-sharp-lib/Makefile
 /main/src/addins/UnitTesting/Makefile
+/main/src/addins/UnitTesting/MonoDevelop.UnitTesting/Makefile
 /main/src/addins/UnitTesting/MonoDevelop.UnitTesting.UnitTestExplorer/Makefile
 /main/src/core/Makefile
 /main/src/core/Mono.Debugging/Makefile

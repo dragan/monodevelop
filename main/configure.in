@@ -294,6 +294,7 @@ src/addins/Makefile
 src/addins/MonoDeveloperExtensions/Makefile
 src/addins/MonoDeveloperExtensions/NUnit/Makefile
 src/addins/UnitTesting/Makefile
+src/addins/UnitTesting/MonoDevelop.UnitTesting/Makefile
 src/addins/UnitTesting/MonoDevelop.UnitTesting.UnitTestExplorer/Makefile
 src/addins/VersionControl/MonoDevelop.VersionControl/Makefile
 src/addins/VersionControl/MonoDevelop.VersionControl.Subversion/Makefile

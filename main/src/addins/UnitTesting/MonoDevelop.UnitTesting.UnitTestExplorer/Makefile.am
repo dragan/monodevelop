@@ -10,6 +10,7 @@ REFS =  \
 	$(GLADE_SHARP_LIBS) \
 	$(GLIB_SHARP_LIBS) \
 	$(GTK_SHARP_LIBS) \
+	-r:../../../../build/AddIns/UnitTesting/MonoDevelop.UnitTesting.dll \
 	-r:../../../../build/bin/MonoDevelop.Core.dll \
 	-r:../../../../build/bin/MonoDevelop.Ide.dll \
 	-r:Mono.Cairo \
@@ -18,8 +19,7 @@ REFS =  \
 FILES =  \
 	AssemblyInfo.cs \
 	Gui/UnitTestExplorerPad.cs \
-	Gui/UnitTestNodeBuilder.cs \
-	UnitTest.cs
+	Gui/UnitTestNodeBuilder.cs
 
 RES =  \
 	Gui/Icons/unit-test-explorer-icon-16.png \

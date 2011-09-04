@@ -26,6 +26,7 @@
 using System;
 
 using MonoDevelop.Ide.Gui.Components;
+using MonoDevelop.UnitTesting;
 
 namespace MonoDevelop.UnitTesting.UnitTestExplorer.Gui
 {

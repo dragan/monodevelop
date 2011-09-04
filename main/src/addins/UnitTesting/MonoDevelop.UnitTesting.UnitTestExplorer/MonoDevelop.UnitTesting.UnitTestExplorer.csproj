@@ -42,7 +42,6 @@
     <Compile Include="AssemblyInfo.cs" />
     <Compile Include="Gui\UnitTestExplorerPad.cs" />
     <Compile Include="Gui\UnitTestNodeBuilder.cs" />
-    <Compile Include="UnitTest.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
@@ -66,6 +65,10 @@
       <Project>{27096E7F-C91C-4AC6-B289-6897A701DF21}</Project>
       <Name>MonoDevelop.Ide</Name>
       <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\MonoDevelop.UnitTesting\MonoDevelop.UnitTesting.csproj">
+      <Project>{5634CC6A-9F15-46A5-99E2-0CE408E7A16E}</Project>
+      <Name>MonoDevelop.UnitTesting</Name>
     </ProjectReference>
   </ItemGroup>
   <ProjectExtensions>

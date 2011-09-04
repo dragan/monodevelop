@@ -25,7 +25,7 @@
 // THE SOFTWARE.
 using System;
 
-namespace MonoDevelop.UnitTesting.UnitTestExplorer
+namespace MonoDevelop.UnitTesting
 {
 	public class UnitTest
 	{

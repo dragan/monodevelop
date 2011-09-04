@@ -9,6 +9,7 @@
        version     = "0.0.0">
 	
 	<Runtime>
+		<Import assembly="MonoDevelop.UnitTesting.dll"/>
 		<Import assembly="MonoDevelop.UnitTesting.UnitTestExplorer.dll"/>
 	</Runtime>
 	
