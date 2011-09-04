@@ -1,5 +1,5 @@
 // 
-// UnitTestExplorerPad.cs
+// UnitTestExplorerService.cs
 //  
 // Author:
 //       Dale Ragan <dale.ragan@moncai.com>
@@ -24,26 +24,52 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 using System;
+using System.Collections.Generic;
 
+using Mono.Addins;
 using MonoDevelop.Core;
-using MonoDevelop.Ide.Gui.Components;
-using MonoDevelop.Ide.Gui.Pads;
+using MonoDevelop.UnitTesting;
 
-namespace MonoDevelop.UnitTesting.UnitTestExplorer.Gui
+namespace MonoDevelop.UnitTesting.UnitTestExplorer
 {
-	public class UnitTestExplorerPad : TreeViewPad
+	public class UnitTestExplorerService
 	{
-		UnitTestExplorerService unitTestExplorerService = UnitTestExplorerService.Instance;
+		static UnitTestExplorerService instance;
 		
-		public UnitTestExplorerPad ()
+		IList<IUnitTestProvider> unitTestProviders;
+		
+		public static UnitTestExplorerService Instance
 		{
+			get
+			{
+				if (instance == null)
+					instance = new UnitTestExplorerService ();
+				
+				return instance;
+			}
 		}
 		
-		public override void Initialize (NodeBuilder[] builders, TreePadOption[] options, string contextMenuPath)
+		UnitTestExplorerService ()
 		{
-			base.Initialize (builders, options, contextMenuPath);
+			unitTestProviders = new List<IUnitTestProvider> ();
 			
-			LoggingService.LogInfo ("UnitTestExplorer:  Initialized");
+			AddinManager.AddExtensionNodeHandler ("/MonoDevelop/UnitTesting/UnitTestProviders", OnExtensionNodeChanged);
+		}
+		
+		void OnExtensionNodeChanged (object s, ExtensionNodeEventArgs args)
+		{
+			if (args.Change == ExtensionChange.Add)
+			{
+				IUnitTestProvider unitTestProvider = args.ExtensionObject as IUnitTestProvider;
+				unitTestProviders.Add (unitTestProvider);
+				LoggingService.LogInfo ("Added Unit Test Provider: {0}", unitTestProvider.GetType ());
+			}
+			else
+			{
+				IUnitTestProvider unitTestProvider = args.ExtensionObject as IUnitTestProvider;
+				unitTestProviders.Remove (unitTestProvider);
+				LoggingService.LogInfo ("Removed Unit Test Provider: {0}", unitTestProvider.GetType ());
+			}
 		}
 	}
 }

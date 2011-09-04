@@ -18,6 +18,11 @@
 		<Addin id="Ide" version="2.7"/>
 	</Dependencies>
 	
+	<ExtensionPoint path = "/MonoDevelop/UnitTesting/UnitTestProviders" name = "Unit Test providers">
+		<Description>Specified classes must implement MonoDevelop.UnitTesting.IUnitTestProvider.</Description>
+		<ExtensionNode name = "Class" />
+	</ExtensionPoint>
+	
 	<Extension path = "/MonoDevelop/Ide/Pads">
 		<SolutionPad id = "MonoDevelop.UnitTesting.UnitTestExplorer.Gui.UnitTestExplorerPad" defaultLayout="UnitTesting" defaultPlacement = "Middle" defaultStatus="AutoHide" _label = "Unit Test Explorer" icon = "unit-test-explorer-pad-icon" class = "MonoDevelop.UnitTesting.UnitTestExplorer.Gui.UnitTestExplorerPad">
 			<NodeBuilder id = "UnitTestNode" class = "MonoDevelop.UnitTesting.UnitTestExplorer.Gui.UnitTestNodeBuilder"/>

@@ -1,5 +1,5 @@
 // 
-// UnitTestExplorerPad.cs
+// IUnitTestProvider.cs
 //  
 // Author:
 //       Dale Ragan <dale.ragan@moncai.com>
@@ -25,25 +25,9 @@
 // THE SOFTWARE.
 using System;
 
-using MonoDevelop.Core;
-using MonoDevelop.Ide.Gui.Components;
-using MonoDevelop.Ide.Gui.Pads;
-
-namespace MonoDevelop.UnitTesting.UnitTestExplorer.Gui
+namespace MonoDevelop.UnitTesting
 {
-	public class UnitTestExplorerPad : TreeViewPad
+	public interface IUnitTestProvider
 	{
-		UnitTestExplorerService unitTestExplorerService = UnitTestExplorerService.Instance;
-		
-		public UnitTestExplorerPad ()
-		{
-		}
-		
-		public override void Initialize (NodeBuilder[] builders, TreePadOption[] options, string contextMenuPath)
-		{
-			base.Initialize (builders, options, contextMenuPath);
-			
-			LoggingService.LogInfo ("UnitTestExplorer:  Initialized");
-		}
 	}
 }

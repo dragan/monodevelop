@@ -6,6 +6,7 @@ REFS = -r:System
 
 FILES =  \
 	AssemblyInfo.cs \
+	IUnitTestProvider.cs \
 	UnitTest.cs
 
 all: $(ASSEMBLY) $(ASSEMBLY).mdb
