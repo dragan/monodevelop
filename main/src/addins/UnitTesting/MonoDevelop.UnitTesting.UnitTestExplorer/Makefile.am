@@ -7,13 +7,23 @@ DEPS =  \
 	$(top_builddir)/build/bin/MonoDevelop.Ide.dll
 
 REFS =  \
+	$(GLADE_SHARP_LIBS) \
+	$(GLIB_SHARP_LIBS) \
+	$(GTK_SHARP_LIBS) \
 	-r:../../../../build/bin/MonoDevelop.Core.dll \
 	-r:../../../../build/bin/MonoDevelop.Ide.dll \
+	-r:Mono.Cairo \
 	-r:System
 
-FILES = AssemblyInfo.cs
+FILES =  \
+	AssemblyInfo.cs \
+	Gui/UnitTestExplorerPad.cs \
+	Gui/UnitTestNodeBuilder.cs \
+	UnitTest.cs
 
-RES = MonoDevelop.UnitTesting.UnitTestExplorer.addin.xml
+RES =  \
+	Gui/Icons/unit-test-explorer-icon-16.png \
+	MonoDevelop.UnitTesting.UnitTestExplorer.addin.xml
 	
 all: $(ASSEMBLY) $(ASSEMBLY).mdb
 

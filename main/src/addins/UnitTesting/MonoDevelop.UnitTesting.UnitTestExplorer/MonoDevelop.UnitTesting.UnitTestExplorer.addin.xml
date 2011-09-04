@@ -17,4 +17,20 @@
 		<Addin id="Ide" version="2.7"/>
 	</Dependencies>
 	
+	<Extension path = "/MonoDevelop/Ide/Pads">
+		<SolutionPad id = "MonoDevelop.UnitTesting.UnitTestExplorer.Gui.UnitTestExplorerPad" defaultLayout="UnitTesting" defaultPlacement = "Middle" defaultStatus="AutoHide" _label = "Unit Test Explorer" icon = "unit-test-explorer-pad-icon" class = "MonoDevelop.UnitTesting.UnitTestExplorer.Gui.UnitTestExplorerPad">
+			<NodeBuilder id = "UnitTestNode" class = "MonoDevelop.UnitTesting.UnitTestExplorer.Gui.UnitTestNodeBuilder"/>
+		</SolutionPad>
+	</Extension>
+	
+	<Extension path="/MonoDevelop/Ide/WorkbenchLayouts">
+		<Layout id="UnitTesting" _name="Unit Testing">
+			<LayoutPad id="MonoDevelop.UnitTesting.UnitTestExplorer.Gui.UnitTestExplorerPad" status="Dockable"/>
+		</Layout>
+	</Extension>
+	
+	<Extension path = "/MonoDevelop/Core/StockIcons">
+		<StockIcon stockid = "unit-test-explorer-pad-icon" resource = "unit-test-explorer-icon-16.png" size="Menu"/>
+	</Extension>
+	
 </Addin>
