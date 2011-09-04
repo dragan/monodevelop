@@ -50,7 +50,7 @@
 		</Condition>
 	</Extension>
 
-	<Module>
+	<!--Module>
 	    <Runtime>
 	        <Import assembly="MonoDeveloperExtensions_nunit.dll"/>
 	    </Runtime>
@@ -60,6 +60,6 @@
 		<Extension path = "/MonoDevelop/NUnit/TestProviders">
 			<Class id = "MonoTestProvider" class = "MonoDeveloper.MonoTestProvider"/>
 		</Extension>
-	</Module>
+	</Module-->
 </Addin>
 

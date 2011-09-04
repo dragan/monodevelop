@@ -16,7 +16,6 @@ SUBDIRS = \
 	AspNet \
 	CSharpBinding \
 	ILAsmBinding \
-	NUnit \
 	MonoDeveloperExtensions \
 	VBNetBinding \
 	prj2make-sharp-lib \
@@ -32,4 +31,5 @@ SUBDIRS = \
 	WindowsPlatform \
 	MonoDevelop.HexEditor \
 	MonoDevelop.DocFood \
-	MonoDevelop.MacDev
+	MonoDevelop.MacDev \
+	UnitTesting

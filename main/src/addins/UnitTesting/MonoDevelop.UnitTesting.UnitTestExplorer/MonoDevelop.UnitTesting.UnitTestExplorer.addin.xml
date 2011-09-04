@@ -1,0 +1,20 @@
+<Addin id          = "UnitTesting.UnitTestExplorer"
+       namespace   = "MonoDevelop"
+       name        = "Unit Test Explorer"
+       author      = "Lluis Sanchez, John Luke, Dale Ragan"
+       copyright   = "MIT X11"
+       url         = "http://monodevelop.com"
+       description = "Allows you to visually explore and run your unit tests in the MonoDevelop IDE.  Support for testing frameworks are provided as separate add-ins."
+	   category    = "Testing"
+       version     = "0.0.0">
+	
+	<Runtime>
+		<Import assembly="MonoDevelop.UnitTesting.UnitTestExplorer.dll"/>
+	</Runtime>
+	
+	<Dependencies>
+		<Addin id="Core" version="2.7"/>
+		<Addin id="Ide" version="2.7"/>
+	</Dependencies>
+	
+</Addin>

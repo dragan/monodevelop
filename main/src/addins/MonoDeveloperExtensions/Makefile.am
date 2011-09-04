@@ -1,5 +1,3 @@
-SUBDIRS = . NUnit
-
 FILES =  \
 	AssemblyInfo.cs \
 	Commands.cs \
