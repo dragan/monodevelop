@@ -26,6 +26,7 @@
 using System;
 
 using MonoDevelop.Core;
+using MonoDevelop.Ide;
 using MonoDevelop.Ide.Gui.Components;
 using MonoDevelop.Ide.Gui.Pads;
 
@@ -43,7 +44,27 @@ namespace MonoDevelop.UnitTesting.UnitTestExplorer.Gui
 		{
 			base.Initialize (builders, options, contextMenuPath);
 			
+			unitTestExplorerService.UnitTestSuiteChanged += (EventHandler) DispatchService.GuiDispatch (new EventHandler (OnUnitTestSuiteChanged));
+			
+			if (unitTestExplorerService.UnitTestSuite != null)
+				foreach (UnitTest unitTest in unitTestExplorerService.UnitTestSuite)
+					TreeView.AddChild (unitTest);
+			
 			LoggingService.LogInfo ("UnitTestExplorerPad:  Initialized");
+		}
+		
+		void OnUnitTestSuiteChanged (object sender, EventArgs e)
+		{
+			if (unitTestExplorerService.UnitTestSuite.Length > 0)
+			{
+				TreeView.Clear ();
+				foreach (UnitTest unitTest in unitTestExplorerService.UnitTestSuite)
+					TreeView.AddChild (unitTest);
+			}
+			else
+			{
+				TreeView.Clear ();
+			}
 		}
 	}
 }

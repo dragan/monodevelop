@@ -52,6 +52,10 @@ namespace MonoDevelop.UnitTesting.UnitTestExplorer
 			}
 		}
 		
+		public UnitTest[] UnitTestSuite { get; private set; }
+		
+		public event EventHandler UnitTestSuiteChanged;
+		
 		IList<IUnitTestProvider> unitTestProviders;
 		
 		UnitTestExplorerService ()
@@ -94,6 +98,8 @@ namespace MonoDevelop.UnitTesting.UnitTestExplorer
 		
 		void FindUnitTests ()
 		{
+			List<UnitTest> unitTests = new List<UnitTest> ();
+			
 			// TODO: For now, we'll just get the projects.  We'll add the other types of workspace items later, like SolutionFolders
 			foreach (Project project in IdeApp.Workspace.GetAllProjects ())
 			{
@@ -105,10 +111,14 @@ namespace MonoDevelop.UnitTesting.UnitTestExplorer
 						if (IsUnitTestProviderFrameworkReferenced (unitTestProvider, dotNetProject))
 						{
 							LoggingService.LogInfo ("Found project that references the {0} Framework: {1}", unitTestProvider.FrameworkName, dotNetProject.Name);
+							unitTests.Add (new UnitTestProject (dotNetProject, unitTestProvider));
 						}
 					}
 				}
 			}
+			
+			UnitTestSuite = unitTests.ToArray ();
+			NotifyUnitTestSuiteChanged ();
 		}
 		
 		bool IsUnitTestProviderFrameworkReferenced (IUnitTestProvider unitTestProvider, DotNetProject dotNetProject)
@@ -129,6 +139,34 @@ namespace MonoDevelop.UnitTesting.UnitTestExplorer
 		void OnWorkspaceChanged (object sender, EventArgs e)
 		{
 			AsyncFindUnitTests ();
+		}
+		
+		void NotifyUnitTestSuiteChanged ()
+		{
+			if (UnitTestSuiteChanged != null)
+				UnitTestSuiteChanged.Invoke (this, EventArgs.Empty);
+		}
+	}
+	
+	public class UnitTestProject : UnitTest
+	{
+		readonly DotNetProject dotNetProject;
+		readonly IUnitTestProvider unitTestProvider;
+		
+		public string AssemblyPath
+		{
+			get { return dotNetProject.GetOutputFileName (IdeApp.Workspace.ActiveConfiguration); }
+		}
+		
+		public bool AssemblyExists
+		{
+			get { return System.IO.File.Exists (AssemblyPath); }
+		}
+		
+		public UnitTestProject (DotNetProject dotNetProject, IUnitTestProvider unitTestProvider) : base (dotNetProject.Name)
+		{
+			this.dotNetProject = dotNetProject;
+			this.unitTestProvider = unitTestProvider;
 		}
 	}
 }
