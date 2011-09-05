@@ -118,6 +118,7 @@ autom4te.cache/
 /main/src/addins/UnitTesting/Makefile
 /main/src/addins/UnitTesting/MonoDevelop.UnitTesting/Makefile
 /main/src/addins/UnitTesting/MonoDevelop.UnitTesting.UnitTestExplorer/Makefile
+/main/src/addins/UnitTesting/MonoDevelop.UnitTesting.UnitTestProvider.Nunit/Makefile
 /main/src/core/Makefile
 /main/src/core/Mono.Debugging/Makefile
 /main/src/core/Mono.Texteditor/Makefile

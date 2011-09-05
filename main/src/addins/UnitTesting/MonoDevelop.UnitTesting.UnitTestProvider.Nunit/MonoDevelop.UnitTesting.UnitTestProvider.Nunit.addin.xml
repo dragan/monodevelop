@@ -1,0 +1,26 @@
+<Addin id          = "UnitTesting.UnitTestProvider.Nunit"
+       namespace   = "MonoDevelop"
+       name        = "NUnit Unit Test Provider"
+       author      = "Dale Ragan"
+       copyright   = "MIT X11"
+       url         = "http://nunit.org"
+       description = "Allows you to visually explore and run your unit tests developed with the NUnit Test Framework in the MonoDevelop IDE."
+	   category    = "Testing"
+       version     = "0.0.0">
+	
+	<Runtime>
+		<Import assembly="MonoDevelop.UnitTesting.dll"/>
+		<Import assembly="MonoDevelop.UnitTesting.UnitTestProvider.Nunit.dll"/>
+	</Runtime>
+	
+	<Dependencies>
+		<Addin id="Core" version="2.7"/>
+		<Addin id="Ide" version="2.7"/>
+		<Addin id="UnitTesting.UnitTestExplorer" version="0.0.0"/>
+	</Dependencies>
+	
+	<Extension path = "/MonoDevelop/UnitTesting/UnitTestProviders">
+		<Class id = "NunitUnitTestProvider" class="MonoDevelop.UnitTesting.UnitTestProvider.Nunit.NunitUnitTestProvider"/>
+	</Extension>
+	
+</Addin>
