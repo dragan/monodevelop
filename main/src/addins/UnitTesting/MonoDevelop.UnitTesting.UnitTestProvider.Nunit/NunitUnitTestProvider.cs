@@ -31,6 +31,16 @@ namespace MonoDevelop.UnitTesting.UnitTestProvider.Nunit
 {
 	public class NunitUnitTestProvider : IUnitTestProvider
 	{
+		public string AssemblyName
+		{
+			get { return "nunit.framework"; }
+		}
+		
+		public string FrameworkName
+		{
+			get { return "NUnit"; }
+		}
+		
 		public NunitUnitTestProvider ()
 		{
 		}

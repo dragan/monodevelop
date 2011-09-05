@@ -29,5 +29,7 @@ namespace MonoDevelop.UnitTesting
 {
 	public interface IUnitTestProvider
 	{
+		string AssemblyName { get; }
+		string FrameworkName { get; }
 	}
 }
