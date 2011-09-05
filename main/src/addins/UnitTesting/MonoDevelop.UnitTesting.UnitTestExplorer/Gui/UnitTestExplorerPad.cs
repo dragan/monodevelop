@@ -43,7 +43,7 @@ namespace MonoDevelop.UnitTesting.UnitTestExplorer.Gui
 		{
 			base.Initialize (builders, options, contextMenuPath);
 			
-			LoggingService.LogInfo ("UnitTestExplorer:  Initialized");
+			LoggingService.LogInfo ("UnitTestExplorerPad:  Initialized");
 		}
 	}
 }
