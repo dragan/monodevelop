@@ -58,6 +58,13 @@ namespace MonoDevelop.UnitTesting.UnitTestExplorer
 		{
 			unitTestProviders = new List<IUnitTestProvider> ();
 			
+			IdeApp.Workspace.ReferenceAddedToProject += OnWorkspaceChanged;
+			IdeApp.Workspace.ReferenceRemovedFromProject += OnWorkspaceChanged;
+			IdeApp.Workspace.WorkspaceItemOpened += OnWorkspaceChanged;
+			IdeApp.Workspace.WorkspaceItemClosed += OnWorkspaceChanged;
+			IdeApp.Workspace.ItemAddedToSolution += OnWorkspaceChanged;
+			IdeApp.Workspace.ItemRemovedFromSolution += OnWorkspaceChanged;
+			
 			AddinManager.AddExtensionNodeHandler ("/MonoDevelop/UnitTesting/UnitTestProviders", OnExtensionNodeChanged);
 		}
 		
@@ -117,6 +124,11 @@ namespace MonoDevelop.UnitTesting.UnitTestExplorer
 			}
 			
 			return isReferenced;
+		}
+		
+		void OnWorkspaceChanged (object sender, EventArgs e)
+		{
+			AsyncFindUnitTests ();
 		}
 	}
 }
