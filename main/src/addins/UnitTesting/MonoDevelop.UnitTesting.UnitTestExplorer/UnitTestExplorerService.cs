@@ -45,7 +45,7 @@ namespace MonoDevelop.UnitTesting.UnitTestExplorer
 				if (instance == null)
 				{
 					instance = new UnitTestExplorerService ();
-					instance.FindUnitTests ();
+					instance.AsyncFindUnitTests ();
 				}
 				
 				return instance;
