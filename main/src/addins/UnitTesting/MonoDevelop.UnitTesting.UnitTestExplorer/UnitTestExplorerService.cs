@@ -187,8 +187,7 @@ namespace MonoDevelop.UnitTesting.UnitTestExplorer
 			if (AssemblyFileExists)
 			{
 				System.Reflection.Assembly assembly = System.Reflection.Assembly.LoadFrom (AssemblyPath);
-				UnitTest unitTest = unitTestProvider.ExploreAssembly (assembly);
-				AddChild (unitTest);
+				unitTestProvider.ExploreAssembly (assembly, this);
 			}
 		}
 	}

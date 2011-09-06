@@ -1,5 +1,5 @@
 // 
-// IUnitTestProvider.cs
+// NunitUnitTest.cs
 //  
 // Author:
 //       Dale Ragan <dale.ragan@moncai.com>
@@ -24,14 +24,22 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 using System;
-using System.Reflection;
 
-namespace MonoDevelop.UnitTesting
+using NUnit.Core;
+
+using MonoDevelop.UnitTesting;
+
+namespace MonoDevelop.UnitTesting.UnitTestProvider.Nunit
 {
-	public interface IUnitTestProvider
+	public class NunitUnitTest : UnitTest
 	{
-		string AssemblyName { get; }
-		string FrameworkName { get; }
-		void ExploreAssembly (Assembly assembly, UnitTest parentUnitTest);
+		readonly ITest test;
+		
+		public ITest Test { get { return test; } }
+		
+		public NunitUnitTest (string name, ITest test) : base (name)
+		{
+			this.test = test;
+		}
 	}
 }

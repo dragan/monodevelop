@@ -1,5 +1,5 @@
 // 
-// IUnitTestProvider.cs
+// NunitAssemblyUnitTest.cs
 //  
 // Author:
 //       Dale Ragan <dale.ragan@moncai.com>
@@ -26,12 +26,22 @@
 using System;
 using System.Reflection;
 
-namespace MonoDevelop.UnitTesting
+using NUnit.Core;
+
+namespace MonoDevelop.UnitTesting.UnitTestProvider.Nunit
 {
-	public interface IUnitTestProvider
+	public class NunitAssemblyUnitTest : NunitUnitTest
 	{
-		string AssemblyName { get; }
-		string FrameworkName { get; }
-		void ExploreAssembly (Assembly assembly, UnitTest parentUnitTest);
+		readonly TestRunner testRunner;
+		
+		public TestRunner TestRunner
+		{
+			get { return testRunner; }
+		}
+		
+		public NunitAssemblyUnitTest (Assembly assembly, TestRunner testRunner) : base (assembly.GetName ().Name, testRunner.Test)
+		{
+			this.testRunner = testRunner;
+		}
 	}
 }

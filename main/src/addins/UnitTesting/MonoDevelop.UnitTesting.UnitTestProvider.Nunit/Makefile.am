@@ -19,6 +19,8 @@ REFS =  \
 
 FILES =  \
 	AssemblyInfo.cs \
+	NunitAssemblyUnitTest.cs \
+	NunitUnitTest.cs \
 	NunitUnitTestProvider.cs
 
 RES = MonoDevelop.UnitTesting.UnitTestProvider.Nunit.addin.xml

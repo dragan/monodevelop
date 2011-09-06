@@ -26,6 +26,9 @@
 using System;
 using System.Reflection;
 
+using NUnit.Core;
+using NUnit.Util;
+
 using MonoDevelop.Core;
 using MonoDevelop.UnitTesting;
 
@@ -33,6 +36,8 @@ namespace MonoDevelop.UnitTesting.UnitTestProvider.Nunit
 {
 	public class NunitUnitTestProvider : IUnitTestProvider
 	{
+		static bool isNunitInitialized;
+		
 		public string AssemblyName
 		{
 			get { return "nunit.framework"; }
@@ -45,11 +50,60 @@ namespace MonoDevelop.UnitTesting.UnitTestProvider.Nunit
 		
 		public NunitUnitTestProvider ()
 		{
+			InitializeNunit ();
 		}
 		
-		public UnitTest ExploreAssembly (Assembly assembly)
+		public void ExploreAssembly (Assembly assembly, UnitTest parentUnitTest)
 		{
-			return new UnitTest ("NunitAssemblyUnitTest");
+			TestRunner testRunner = CreateTestRunner (assembly.Location);
+			var assemblyUnitTest = new NunitAssemblyUnitTest (assembly, testRunner);
+			parentUnitTest.AddChild (assemblyUnitTest);
+			
+			foreach (ITest assemblyTestSuite in testRunner.Test.Tests)
+				CreateUnitTestChildren (assembly, assemblyUnitTest, assemblyTestSuite);
+		}
+		
+		static void CreateUnitTest (Assembly assembly, NunitUnitTest parentUnitTest, ITest nunitTest)
+		{
+			var createdUnitTest = new NunitUnitTest (nunitTest.TestName.Name, nunitTest);
+			parentUnitTest.AddChild (createdUnitTest);
+			CreateUnitTestChildren (assembly, createdUnitTest, nunitTest);
+		}
+		
+		static void CreateUnitTestChildren (Assembly assembly, NunitUnitTest parentUnitTest, ITest parentNunitTest)
+		{
+			if (parentNunitTest.Tests != null)
+				foreach (ITest childNunitTest in parentNunitTest.Tests)
+					CreateUnitTest (assembly, parentUnitTest, childNunitTest);
+		}
+		
+		static TestRunner CreateTestRunner (string assemblyLocation)
+		{
+			TestPackage package = new TestPackage (@"Tests");
+			package.Settings.Add (@"AutoNamespaceSuites", true);
+			package.Assemblies.Add (assemblyLocation);
+
+			TestRunner testRunner = new RemoteTestRunner ();
+			if (!testRunner.Load (package))
+				LoggingService.LogError ("Could not load test package with assembly: {0}", assemblyLocation);
+
+			return testRunner;
+		}
+		
+		static void InitializeNunit ()
+		{
+			if (!isNunitInitialized)
+			{
+				ServiceManager.Services.AddService (new DomainManager ());
+				ServiceManager.Services.AddService (new AddinRegistry ());
+				ServiceManager.Services.AddService (new AddinManager ());
+				ServiceManager.Services.AddService (new TestAgency ());
+				ServiceManager.Services.InitializeServices ();
+				
+				AppDomain.CurrentDomain.SetData ("AddinRegistry", Services.AddinRegistry);
+				
+				isNunitInitialized = true;
+			}
 		}
 	}
 }

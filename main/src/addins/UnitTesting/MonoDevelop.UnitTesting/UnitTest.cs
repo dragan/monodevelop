@@ -44,7 +44,7 @@ namespace MonoDevelop.UnitTesting
 			children = new List<UnitTest> ();
 		}
 		
-		protected void AddChild (UnitTest unitTest)
+		public void AddChild (UnitTest unitTest)
 		{
 			unitTest.Parent = this;
 			children.Add (unitTest);
