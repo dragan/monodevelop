@@ -24,6 +24,7 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 using System;
+using System.Reflection;
 
 namespace MonoDevelop.UnitTesting
 {
@@ -31,5 +32,6 @@ namespace MonoDevelop.UnitTesting
 	{
 		string AssemblyName { get; }
 		string FrameworkName { get; }
+		UnitTest ExploreAssembly (Assembly assembly);
 	}
 }

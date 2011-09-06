@@ -148,6 +148,7 @@ namespace MonoDevelop.UnitTesting.UnitTestExplorer
 		}
 	}
 	
+	// TODO: Figure out where we want this class to live.  Either here in this assembly or MonoDevelop.UnitTesting.
 	public class UnitTestProject : UnitTest
 	{
 		readonly DotNetProject dotNetProject;
@@ -158,7 +159,7 @@ namespace MonoDevelop.UnitTesting.UnitTestExplorer
 			get { return dotNetProject.GetOutputFileName (IdeApp.Workspace.ActiveConfiguration); }
 		}
 		
-		public bool AssemblyExists
+		public bool AssemblyFileExists
 		{
 			get { return System.IO.File.Exists (AssemblyPath); }
 		}
@@ -167,6 +168,28 @@ namespace MonoDevelop.UnitTesting.UnitTestExplorer
 		{
 			this.dotNetProject = dotNetProject;
 			this.unitTestProvider = unitTestProvider;
+			
+			IdeApp.ProjectOperations.EndBuild += new BuildEventHandler (OnProjectBuilt);
+			// TODO: Need to add logic to event when project is cleaned as well, so we can remove from the tree
+			
+			ExploreAssembly ();
+		}
+		
+		void OnProjectBuilt (object s, BuildEventArgs args)
+		{
+			ClearChildren ();
+			ExploreAssembly ();
+		}
+		
+		void ExploreAssembly ()
+		{
+			// TODO: Since we're loading in async, need to keep a status of the loading and display on the node
+			if (AssemblyFileExists)
+			{
+				System.Reflection.Assembly assembly = System.Reflection.Assembly.LoadFrom (AssemblyPath);
+				UnitTest unitTest = unitTestProvider.ExploreAssembly (assembly);
+				AddChild (unitTest);
+			}
 		}
 	}
 }

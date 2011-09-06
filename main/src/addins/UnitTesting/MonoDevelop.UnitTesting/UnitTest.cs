@@ -24,16 +24,46 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 using System;
+using System.Collections.Generic;
 
 namespace MonoDevelop.UnitTesting
 {
 	public class UnitTest
 	{
+		readonly List<UnitTest> children;
+		
 		public string Name { get; private set; }
+		public UnitTest Parent { get; set; }
+		public IList<UnitTest> Children { get { return children; } }
+		public event EventHandler UnitTestChanged;
 		
 		public UnitTest (string name)
 		{
 			Name = name;
+			
+			children = new List<UnitTest> ();
+		}
+		
+		protected void AddChild (UnitTest unitTest)
+		{
+			unitTest.Parent = this;
+			children.Add (unitTest);
+			OnUnitTestChanged ();
+		}
+		
+		protected void ClearChildren ()
+		{
+			foreach (var unitTest in children)
+				unitTest.Parent = null;
+				
+			children.Clear ();
+			OnUnitTestChanged ();
+		}
+		
+		protected void OnUnitTestChanged ()
+		{
+			if (UnitTestChanged != null)
+				UnitTestChanged.Invoke (this, EventArgs.Empty);
 		}
 	}
 }

@@ -24,7 +24,9 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 using System;
+using System.Reflection;
 
+using MonoDevelop.Core;
 using MonoDevelop.UnitTesting;
 
 namespace MonoDevelop.UnitTesting.UnitTestProvider.Nunit
@@ -43,6 +45,11 @@ namespace MonoDevelop.UnitTesting.UnitTestProvider.Nunit
 		
 		public NunitUnitTestProvider ()
 		{
+		}
+		
+		public UnitTest ExploreAssembly (Assembly assembly)
+		{
+			return new UnitTest ("NunitAssemblyUnitTest");
 		}
 	}
 }

@@ -25,6 +25,7 @@
 // THE SOFTWARE.
 using System;
 
+using MonoDevelop.Ide;
 using MonoDevelop.Ide.Gui.Components;
 using MonoDevelop.UnitTesting;
 
@@ -32,8 +33,11 @@ namespace MonoDevelop.UnitTesting.UnitTestExplorer.Gui
 {
 	public class UnitTestNodeBuilder : TypeNodeBuilder
 	{
+		EventHandler unitTestChanged;
+		
 		public UnitTestNodeBuilder ()
 		{
+			unitTestChanged = (EventHandler) DispatchService.GuiDispatch (new EventHandler (OnUnitTestChanged));
 		}
 		
 		public override Type NodeDataType
@@ -55,11 +59,39 @@ namespace MonoDevelop.UnitTesting.UnitTestExplorer.Gui
 		
 		public override void BuildChildNodes (ITreeBuilder builder, object dataObject)
 		{
+			UnitTest unitTest = dataObject as UnitTest;
+			if (unitTest == null)
+				return;
+			
+			foreach (UnitTest childUnitTest in unitTest.Children)
+				builder.AddChild (childUnitTest);
 		}
 		
 		public override bool HasChildNodes (ITreeBuilder builder, object dataObject)
 		{
-			return false;
+			UnitTest unitTest = dataObject as UnitTest;
+			return unitTest != null && unitTest.Children.Count > 0;
+		}
+		
+		public override void OnNodeAdded (object dataObject)
+		{
+			UnitTest unitTest = dataObject as UnitTest;
+			if (unitTest != null)
+				unitTest.UnitTestChanged += unitTestChanged;
+		}
+		
+		public override void OnNodeRemoved (object dataObject)
+		{
+			UnitTest unitTest = dataObject as UnitTest;
+			if (unitTest != null)
+				unitTest.UnitTestChanged -= unitTestChanged;
+		}
+		
+		public void OnUnitTestChanged (object sender, EventArgs args)
+		{
+			ITreeBuilder tb = Context.GetTreeBuilder (sender);
+			if (tb != null)
+				tb.UpdateAll ();
 		}
 	}
 }
