@@ -46,25 +46,22 @@ namespace MonoDevelop.UnitTesting.UnitTestExplorer.Gui
 			
 			unitTestExplorerService.UnitTestSuiteChanged += (EventHandler) DispatchService.GuiDispatch (new EventHandler (OnUnitTestSuiteChanged));
 			
-			if (unitTestExplorerService.UnitTestSuite != null)
-				foreach (UnitTest unitTest in unitTestExplorerService.UnitTestSuite)
-					TreeView.AddChild (unitTest);
+			PopulateTreeView ();
 			
 			LoggingService.LogInfo ("UnitTestExplorerPad:  Initialized");
 		}
 		
 		void OnUnitTestSuiteChanged (object sender, EventArgs e)
 		{
-			if (unitTestExplorerService.UnitTestSuite.Length > 0)
-			{
-				TreeView.Clear ();
+			TreeView.Clear ();
+			PopulateTreeView ();
+		}
+		
+		void PopulateTreeView ()
+		{
+			if (unitTestExplorerService.UnitTestSuite != null)
 				foreach (UnitTest unitTest in unitTestExplorerService.UnitTestSuite)
 					TreeView.AddChild (unitTest);
-			}
-			else
-			{
-				TreeView.Clear ();
-			}
 		}
 	}
 }
